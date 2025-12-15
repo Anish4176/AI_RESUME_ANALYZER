@@ -5,8 +5,8 @@ import ResumeCard from "~/components/ResumeCard";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Ai Resume Analyzer" },
+    { name: "AI Resume Analyzer", content: "An AI-powered tool that analyzes your resume against job roles and provides clear, actionable feedback." },
   ];
 }
 
