@@ -1,9 +1,25 @@
 import React, { useState } from "react";
+import FileUploader from "~/components/FileUploader";
 import Navbar from "~/components/Navbar";
 
 const upload = () => {
+  const [file, setfile] = useState<File | null>(null);
   const [isProcessing, setisProcessing] = useState(false);
-  const [statusText, setstatusText] = useState("")
+  const [statusText, setstatusText] = useState("");
+  const handleSubmit=(FormData:any)=>{
+    console.log('hi')
+     const resumeData={
+        companyName:FormData.get("company-name"),
+        jobTitle:FormData.get("job-title"),
+        jobDescription:FormData.get("job-description"),
+        resumeFile:file
+
+     }
+     console.log(resumeData);
+  }
+  const handleFileSelect=(file:File | null)=>{
+    setfile(file);
+  }
   return (
     <main className="bg-[url('/images/bg-main.svg')] bg-cover">
       <Navbar />
@@ -20,7 +36,7 @@ const upload = () => {
                         <h2>Drop your resume for an ATS score and improvement tips</h2>
                     )}
                     {!isProcessing && (
-                        <form id="upload-form" onSubmit={handleSubmit} className="flex flex-col gap-4 mt-8">
+                        <form id="upload-form" action={handleSubmit} className="flex flex-col gap-4 mt-8">
                             <div className="form-div">
                                 <label htmlFor="company-name">Company Name</label>
                                 <input type="text" name="company-name" placeholder="Company Name" id="company-name" />
