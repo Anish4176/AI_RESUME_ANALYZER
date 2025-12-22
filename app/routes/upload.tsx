@@ -1,4 +1,4 @@
-import React, { useActionState, useState } from "react";
+import React, { useActionState, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import FileUploader from "~/components/FileUploader";
 import Navbar from "~/components/Navbar";
@@ -8,11 +8,15 @@ import { usePuterStore } from "~/lib/puter";
 import { generateUUID } from "~/lib/utils";
 
 const upload = () => {
+  const {auth} =usePuterStore();
+    const navigate=useNavigate();
+    useEffect(()=>{
+      if(!auth.isAuthenticated)navigate('/auth?next=/');
+    },[auth.isAuthenticated])
   const {fs,ai,kv}=usePuterStore();
   const [file, setfile] = useState<File | null>(null);
   const [statusText, setstatusText] = useState("");
   const [isProcessing, setisProcessing] = useState(false);
-  const navigate=useNavigate();
   interface formDataProps{
     companyName:string;
     jobTitle:string;

@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import ATS from "~/components/ATS";
 import Details from "~/components/Details";
 import Summary from "~/components/Summary";
 import { usePuterStore } from "~/lib/puter";
 
 const resume = () => {
+  const {auth} =usePuterStore();
+  const navigate=useNavigate();
+  useEffect(()=>{
+    if(!auth.isAuthenticated)navigate('/auth?next=/');
+  },[auth.isAuthenticated])
   const { id } = useParams();
   const { kv, fs } = usePuterStore();
   const [imageUrl, setimageUrl] = useState<string | null>(null);
