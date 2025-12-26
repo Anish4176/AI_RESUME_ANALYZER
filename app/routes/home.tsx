@@ -3,7 +3,7 @@ import type { Route } from "./+types/home";
 import { resumes } from "~/constants";
 import ResumeCard from "~/components/ResumeCard";
 import { usePuterStore } from "~/lib/puter";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 
 export function meta({}: Route.MetaArgs) {
@@ -45,7 +45,7 @@ export default function Home() {
     <main className="bg-[url('/images/bg-main.svg')] bg-cover">
       <section className="main-section">
         <Navbar />
-        <div className="page-heading py-16">
+        <div className="page-heading py-10">
           <h1>Track Your Applications & Resume Ratings</h1>
           {!loadingResume && resumes?.length === 0 ? (
             <h2>No resumes found. Upload your first resume to get feedback.</h2>
@@ -66,6 +66,13 @@ export default function Home() {
             })}
           </div>
         )}
+        {!loadingResume && resumes?.length === 0 && (
+          <div className="flex flex-col items-center justify-center mt-2  gap-4">
+            <Link to="/upload" className="primary-button w-fit text-xl font-semibold">
+              Upload Resume
+            </Link>
+          </div>
+      )}
       </section>
     </main>
   );
